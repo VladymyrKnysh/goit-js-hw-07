@@ -1,7 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems)
 
  const markup = createMarkup(galleryItems)
 
@@ -18,12 +17,28 @@ function createMarkup(galleryItems) {
   </a>
 </div>`
   })
-    .join('')
-    console.log(markup);
+    .join('')  
 }
-const container = document.querySelector('.gallery')
-container.insertAdjacentHTML('afterbegin', markup)
-    
+
+
+const list = document.querySelector('.gallery')
+list.insertAdjacentHTML('afterbegin', markup)
+   
+list.addEventListener('click', onListClick)
+
+function onListClick(evt) {
+  evt.preventDefault()
+  if (evt.target.nodeName !== 'IMG') {
+    return
+  }
+  const url = evt.target.dataset.source
+
+  const instance = basicLightbox.create(`     
+   <img src="${url}" width="800" height="600">   
+`)
+  instance.show(url)
+}
+
 
 
 
