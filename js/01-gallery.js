@@ -35,14 +35,22 @@ function onListClick(evt) {
 
   const instance = basicLightbox.create(`     
    <img src="${url}" width="800" height="600">   
-`)
+`, {
+    onShow: () => {
+    document.addEventListener("keydown", onKeyAction)
+    },
+    onClose: () => {
+    document.removeEventListener("keydown", onKeyAction)
+    },
+  }
+  )
   instance.show()
 
-  list.addEventListener('keydown', (evt) => {
-  if (evt.code === "Escape") {
+  function onKeyAction({ key }) {
+    if (key === "Escape") {
     instance.close()
   }
-})
+}
 
 }
 
